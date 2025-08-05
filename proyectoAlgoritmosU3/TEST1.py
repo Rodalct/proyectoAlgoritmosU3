@@ -47,7 +47,7 @@ def next_ticket_code():
     return f"TKT-{num:03d}"
 
 # --- INTERFAZ ---
-st.title("🛠️ Sistema de Tickets - Soporte Técnico")
+st.title("Sistema de Tickets - Soporte Técnico")
 
 menu = ["Ingresar ticket", "Mostrar tickets", "Ordenar tickets", "Buscar/Editar ticket"]
 choice = st.sidebar.radio("Menú", menu)
