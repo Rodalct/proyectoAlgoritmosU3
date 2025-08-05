@@ -53,7 +53,7 @@ menu = ["Ingresar ticket", "Mostrar tickets", "Ordenar tickets", "Buscar/Editar 
 choice = st.sidebar.radio("Menú", menu)
 
 if choice == "Ingresar ticket":
-    st.header("📥 Ingresar nuevo ticket")
+    st.header("Ingresar nuevo ticket")
     with st.form("form_ticket"):
         code = next_ticket_code()
         st.text_input("Código del ticket", value=code, disabled=True)
@@ -76,10 +76,10 @@ if choice == "Ingresar ticket":
                 tipo_equipo,
                 precio
             ])
-            st.success(f"✅ Ticket {code} registrado.")
+            st.success(f"Ticket {code} registrado.")
 
 elif choice == "Mostrar tickets":
-    st.header("📄 Tickets registrados")
+    st.header("Tickets registrados")
     if not st.session_state.tickets:
         st.info("No hay tickets para mostrar.")
     else:
@@ -90,7 +90,7 @@ elif choice == "Mostrar tickets":
             )
 
 elif choice == "Ordenar tickets":
-    st.header("🔃 Ordenar tickets")
+    st.header("Ordenar tickets")
     if not st.session_state.tickets:
         st.info("No hay tickets para ordenar.")
     else:
@@ -116,7 +116,7 @@ elif choice == "Ordenar tickets":
             )
 
 elif choice == "Buscar/Editar ticket":
-    st.header("🔎 Buscar y Editar Ticket")
+    st.header("Buscar y Editar Ticket")
     if not st.session_state.tickets:
         st.info("No hay tickets.")
     else:
@@ -139,16 +139,16 @@ elif choice == "Buscar/Editar ticket":
         if st.session_state.get("found_ticket", False):
             idx = st.session_state.selected_ticket_idx
             t = st.session_state.tickets[idx]
-            st.write(f"📋 {t[0]} | Cliente: {t[1]} | Estado: {t[6]} | Precio: S/ {t[8]:.2f}")
+            st.write(f"{t[0]} | Cliente: {t[1]} | Estado: {t[6]} | Precio: S/ {t[8]:.2f}")
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("✅ Marcar como completado"):
+                if st.button("Marcar como completado"):
                     st.session_state.tickets[idx][6] = "Completado"
                     st.session_state.tickets[idx][5] = datetime.now().date()
                     st.success("Ticket marcado como completado.")
                     st.rerun()
             with col2:
-                if st.button("🗑️ Eliminar ticket"):
+                if st.button("Eliminar ticket"):
                     st.session_state.tickets.pop(idx)
                     st.success("Ticket eliminado.")
                     st.session_state.found_ticket = False
