@@ -64,9 +64,9 @@ if choice == "Ingresar ticket":
         tipo_equipo = st.selectbox("Tipo de equipo", ["Laptop", "Celular", "Impresora", "Computadora", "Otros"])
         precio = st.number_input("Precio estimado de reparación (S/.)", min_value=0.0, step=10.0)
         enviar = st.form_submit_button("Guardar ticket")
-         if enviar:
-            # Validación: todos los campos obligatorios deben estar llenos
-            if not cliente or not prioridad or not fecha or not tipo_equipo or precio == 0.0:
+        
+        if enviar:
+            if not cliente.strip() or not prioridad or not fecha or not tipo_equipo or precio == 0.0:
                 st.error("Por favor, completa todos los campos obligatorios antes de continuar.")
             else:
                 st.session_state.tickets.append([
@@ -81,21 +81,7 @@ if choice == "Ingresar ticket":
                     precio
                 ])
                 st.success(f"Ticket {code} registrado.")
-                
-        if enviar:
-            st.session_state.tickets.append([
-                code,
-                cliente,
-                desc,
-                int(prioridad[0]),
-                fecha,
-                None,
-                "En proceso",
-                tipo_equipo,
-                precio
-            ])
-            st.success(f"Ticket {code} registrado.")
-        
+
 elif choice == "Mostrar tickets":
     st.header("Tickets registrados")
     if not st.session_state.tickets:
