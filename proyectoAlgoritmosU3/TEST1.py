@@ -124,8 +124,9 @@ elif choice == "Buscar/Editar ticket":
     if not st.session_state.tickets:
         st.info("No hay tickets.")
     else:
+        st.subheader("Buscar por código de ticket")
         num = st.text_input("Número de solicitud (ej: 1 o 042)")
-        if st.button("Buscar"):
+        if st.button("Buscar por código"):
             try:
                 code_search = f"TKT-{int(num):03d}"
                 encontrados = [(i, t) for i, t in enumerate(st.session_state.tickets) if t[0] == code_search]
@@ -139,6 +140,20 @@ elif choice == "Buscar/Editar ticket":
             except ValueError:
                 st.error("Por favor ingresa un número válido.")
                 st.session_state.found_ticket = False
+
+        st.subheader("Buscar por nombre del cliente")
+        nombre_busqueda = st.text_input("Nombre del cliente")
+        if st.button("Buscar por nombre"):
+            encontrados_nombre = [(i, t) for i, t in enumerate(st.session_state.tickets)
+                                  if nombre_busqueda.lower() in t[1].lower()]
+            if encontrados_nombre:
+                for idx, t in encontrados_nombre:
+                    st.markdown(
+                        f"**{t[0]}** | Cliente: {t[1]} | Prioridad: {t[3]} | Equipo: {t[7]} | "
+                        f"Precio: S/ {t[8]:.2f} | Estado: {t[6]}"
+                    )
+            else:
+                st.warning("No se encontraron tickets con ese nombre.")
 
         if st.session_state.get("found_ticket", False):
             idx = st.session_state.selected_ticket_idx
